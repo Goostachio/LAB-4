@@ -11,10 +11,12 @@
 int led_status = 0;
 
 void blinky(){
-	if(led_status == 0){
-      digitalWrite(6, HIGH);digitalWrite(7, HIGH);
+    if(led_status == 0){
+      digitalWrite(6, HIGH);
+      digitalWrite(7, HIGH);
     }else{
-      digitalWrite(6, LOW);digitalWrite(7, HIGH);
+      digitalWrite(6, LOW);
+      digitalWrite(7, HIGH);
     }
     led_status = 1 - led_status;
 }
