@@ -1,10 +1,6 @@
 #include <scheduler.h>
 #include <software_timer.h>
 #define LED_PIN 48
-#define D3 6
-#define D4 7
-#define D5 8
-#define D6 9
 
 #define INIT 0
 #define RED_GREEN  1
