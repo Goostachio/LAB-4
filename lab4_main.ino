@@ -35,10 +35,8 @@ void blinky() {
 void trafficLight() {
   switch (trafficState) {
     case TRAFFIC_INIT:
-      if (isTimerExpired(TIMER_TRAFFIC)) {
-        setTimer(TIMER_TRAFFIC, 300);
-        trafficState = RED_AMBER;
-      }
+      setTimer(TIMER_TRAFFIC, 300);
+      trafficState = RED_AMBER;
       break;
 
     case RED_GREEN:
@@ -81,33 +79,25 @@ void trafficLight() {
 
 void displayOnClock(int LED) {
   clearClock();
+  switch (LED) {
+    case 0: digitalWrite(D3, HIGH); digitalWrite(D4, HIGH); break;
+    case 1: digitalWrite(D3, LOW);  digitalWrite(D4, HIGH); break;
+    case 2: digitalWrite(D3, HIGH); digitalWrite(D4, LOW); break;
 
-  if (LED < 3) {
-    switch (LED) {
-      case 0: digitalWrite(D3, HIGH); digitalWrite(D4, HIGH); break;
-      case 1: digitalWrite(D3, LOW);  digitalWrite(D4, HIGH); break;
-      case 2: digitalWrite(D3, HIGH); digitalWrite(D4, LOW); break;
-    }
-  } else if (LED < 6) {
-    switch (LED) {
-      case 3: digitalWrite(D5, HIGH); digitalWrite(D6, HIGH); break;
-      case 4: digitalWrite(D5, LOW);  digitalWrite(D6, HIGH); break;
-      case 5: digitalWrite(D5, HIGH); digitalWrite(D6, LOW); break;
-    }
-  } else if (LED < 9) {
-    switch (LED) {
-      case 6: digitalWrite(D7, HIGH); digitalWrite(D8, HIGH); break;
-      case 7: digitalWrite(D7, LOW);  digitalWrite(D8, HIGH); break;
-      case 8: digitalWrite(D7, HIGH); digitalWrite(D8, LOW); break;
-    }
-  } else if (LED <= 11) {
-    switch (LED) {
-      case 9:  digitalWrite(D9, HIGH); digitalWrite(D10, HIGH); break;
-      case 10: digitalWrite(D9, LOW);  digitalWrite(D10, HIGH); break;
-      case 11: digitalWrite(D9, HIGH); digitalWrite(D10, LOW); break;
-    }
+    case 3: digitalWrite(D5, HIGH); digitalWrite(D6, HIGH); break;
+    case 4: digitalWrite(D5, LOW);  digitalWrite(D6, HIGH); break;
+    case 5: digitalWrite(D5, HIGH); digitalWrite(D6, LOW); break;
+
+    case 6: digitalWrite(D7, HIGH); digitalWrite(D8, HIGH); break;
+    case 7: digitalWrite(D7, LOW);  digitalWrite(D8, HIGH); break;
+    case 8: digitalWrite(D7, HIGH); digitalWrite(D8, LOW); break;
+
+    case 9:  digitalWrite(D9, HIGH); digitalWrite(D10, HIGH); break;
+    case 10: digitalWrite(D9, LOW);  digitalWrite(D10, HIGH); break;
+    case 11: digitalWrite(D9, HIGH); digitalWrite(D10, LOW); break;
   }
 }
+
 
 void clearClock() {
   digitalWrite(D3, LOW);  digitalWrite(D4, LOW);
@@ -119,10 +109,8 @@ void clearClock() {
 void DigitalClock() {
   switch (clockState) {
     case CLOCK_INIT:
-      if (isTimerExpired(TIMER_CLOCK)) {
-        setTimer(TIMER_CLOCK, 500);
-        clockState = CLOCK_RUN;
-      }
+      setTimer(TIMER_CLOCK, 500);
+      clockState = CLOCK_RUN;
       break;
 
     case CLOCK_RUN:
@@ -153,10 +141,10 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);
 
   SCH_Init();
-//  setTimer(TIMER_TRAFFIC, 1);
+  setTimer(TIMER_TRAFFIC, 1);
   setTimer(TIMER_CLOCK, 1);
   SCH_Add_Task(timerRun, 0, 1);
- // SCH_Add_Task(trafficLight, 0, 1);
+  SCH_Add_Task(trafficLight, 0, 1);
   SCH_Add_Task(DigitalClock, 0, 1);
 }
 
